@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>haphazardly</title>
+  <style>
+html, body {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  line-height: 1.8;
+  font-family: sans-serif;
+  background: #fff;
+  word-break: keep-all;      /* 단어를 잘라서 줄바꿈하지 않음 (주로 한글/아시아 문자에 유효) */
+  overflow-wrap: normal;     /* 단어가 너무 길면 줄바꿈하지 않음 */
+  white-space: normal;
+}
+p {
+    margin-bottom: 60px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px 20px 30px;
+  z-index: 100;
+  position: fixed;
+  width: 100%;
+  backdrop-filter: blur(10px); /* 블러 효과 */
+  background-color: transparent; /* ✅ 흰 배경 제거 */
+  border-bottom: 1px solid #0000001d;
+  box-sizing: border-box;
+}
+
+
+    .logo {
+      height: 30px;
+    }
+
+    .main {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .yellow-bg {
+      width: 100%;
+      height: auto;
+      display: block;
+      position: relative;
+      z-index: 0;
+    }
+
+    .title-group {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      gap: 10px;
+      z-index: 1;
+    }
+
+    .title-group img {
+      height: 200px;
+    }
+/* 얼 - 왼쪽으로 살짝 기울고 내려감 */
+.title-a {
+  transform: rotate(4deg) translateY(10px);
+}
+
+/* 렁 - 오른쪽으로 기울고 살짝 내려감 */
+.title-b {
+  transform: rotate(-4deg) translateY(-18px);
+}
+
+.title-c {
+  transform: rotate(-0deg) translateY(-0px);
+}
+
+
+/* 땅 - 왼쪽으로 약간 기울고 아주 살짝 올라감 */
+.title-d {
+  transform: rotate(10deg) translateY(-4px) scale(1.15);
+}
+    .title-eng {
+      position: absolute;
+      bottom: 12%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+
+    .title-eng img {
+      height: 60px;
+      display: block;
+    }
+
+    .title-section {
+            margin-bottom: 150px;
+        padding-top: 120px;
+        height: 100vh;
+    }
+
+    @keyframes wiggle {
+      0%   { transform: translate(0, 0); }
+      15%  { transform: translate(-6px, -6px); }
+      30%  { transform: translate(6px, 6px); }
+      45%  { transform: translate(-7px, 5px); }
+      60%  { transform: translate(7px, -5px); }
+      75%  { transform: translate(-5px, 7px); }
+      90%  { transform: translate(5px, -7px); }
+      100% { transform: translate(0, 0); }
+    }
+
+    @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+    }
+
+    .title-group img:hover,
+    .title-eng img:hover, 
+    .preface-deco:hover,
+    .team1-name:hover,
+    .team1-title:hover,
+    .team2-name:hover,
+    .team2-title:hover
+    {
+      animation: wiggle 0.5s ease-in-out infinite;
+    }
+    
+    .team1-graphic:hover,
+    .team2-graphic:hover{
+  animation: spin 8s linear;
+    }
+.preface-section {
+  margin-bottom: 150px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.preface-inner {
+  position: relative;
+  width: 1500px; /* ✅ 실제 이미지 너비 */
+  display: block;
+}
+
+.preface-bg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.preface-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  color: white;
+  line-height: 1.8;
+  text-align: center;
+  width: 100%;
+  max-width: 800px;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+
+/* 기존 preface-text-black 분리 */
+.preface-text-top {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  color: rgb(0, 0, 0);
+  line-height: 1.8;
+  text-align: center;
+  width: 100%;
+  max-width: 800px;
+}
+
+.preface-text-bottom {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  color: rgb(0, 0, 0);
+  line-height: 1.8;
+  text-align: center;
+  width: 100%;
+  max-width: 800px;
+}
+
+.preface-deco {
+  position: absolute;
+  z-index: 2;
+  width: 240px; /* 적절한 크기로 조정 */
+}
+
+.deco1 {
+  top: -100px;
+  right: -60px;
+}
+
+.deco2 {
+  bottom: -120px;
+  left: -20px;
+}
+/* 1팀 전체 섹션 배경 및 정렬 */
+.team1-section {
+  background-color: #FFF600;
+  width: 100%;
+  padding: 100px 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* 내부 최대 너비 1200px */
+.team1-inner {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* 상단 '1팀' 텍스트 이미지 */
+.team1-name {
+  width: 200px;
+  margin-bottom: 40px;
+}
+
+/* 중간 큰 사진 */
+.team1-image {
+  width: 100%;
+  margin-bottom: 60px;
+}
+
+/* '원판' 텍스트 이미지 */
+.team1-title {
+  width: 180px;
+  margin-bottom: 40px;
+}
+
+/* 그래픽 + 설명 텍스트 나란히 */
+.team1-row {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  margin-bottom: 60px;
+}
+
+/* 좌측 원형 그래픽 이미지 */
+.team1-graphic {
+  width: 240px;
+  flex-shrink: 0;
+}
+
+/* 설명 텍스트 */
+.team-desc {
+  flex: 1;
+  color: #000;
+}
+
+/* 화살표를 오른쪽 정렬 */
+.team1-arrow-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 화살표 이미지 */
+.team1-arrow {
+  width: 300px;
+  margin-top: 20px;
+}
+.team1-arrow {
+  width: 300px;
+  height: 100px;
+  margin-top: 20px;
+  background-image: url('asset/arrow.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.team1-arrow:hover {
+  background-image: url('asset/arrow-team1-hover.png');
+}
+
+.team2-section {
+  background-color: #0028ff;
+  width: 100%;
+  padding: 100px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.team2-inner {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.team2-name {
+  width: 200px;
+  margin-bottom: 40px;
+}
+
+.team2-image {
+  width: 100%;
+  margin-bottom: 60px;
+}
+
+.team2-title {
+  width: 180px;
+  margin-bottom: 40px;
+}
+
+.team2-row {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  margin-bottom: 60px;
+}
+
+.team2-graphic {
+  width: 180px;
+  flex-shrink: 0;
+}
+
+.team2-desc {
+  flex: 1;
+  color: #fff000;
+  line-height: 1.8;
+  color: #fff;
+}
+
+.team2-arrow-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.team2-arrow {
+  width: 300px;
+  height: 100px;
+  margin-top: 20px;
+  background-image: url('asset/arrow.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.team2-arrow:hover {
+  background-image: url('asset/arrow-team2-hover.png');
+}
+
+@media (max-width: 768px) {
+  html, body {
+    font-size: 14px;
+    width: 100vw;  
+     overflow-x: hidden;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header {
+    flex-direction: row;
+    justify-content: space-between; /* About 오른쪽 정렬 유지 */
+    align-items: center;
+    padding: 10px 20px;
+  }
+
+  .logo {
+    height: 20px;
+  }
+
+  .title-section {
+    height: auto; /* ✅ 고정 높이 해제 */
+    margin-bottom: 100px; /* ✅ 아래 마진 제거 */
+    padding-top: 100px; /* 필요 시 줄이기 */
+  }
+
+  .title-group {
+    gap: 6px;
+  }
+
+  .title-group img {
+    height: 80px; /* 얼렁뚱땅 줄이기 */
+  }
+
+  .title-eng img {
+display: none
+  }
+
+  #about-link {
+    display: none;
+  }
+
+  #hamburger-icon {
+    display: inline-block;
+  }
+.preface-section {
+    padding: 0 30px;
+    box-sizing: border-box;   /* ✅ 패딩 포함 너비 계산 */
+    position: relative;
+  }
+
+  .preface-inner {
+    width: 100%;
+    margin: 0 auto;
+  }
+  .preface-text,
+  .preface-text-top,
+  .preface-text-bottom {
+    max-width: 100%;
+    text-align: left;
+    line-height: 1.7;
+  }
+.preface-deco {
+    display: none !important;
+  }
+
+  br {
+    display: none !important;
+  }
+
+  .team1-inner,
+  .team2-inner {
+    padding: 0 30px;
+  }
+.preface-bg {
+    width: 200vw;     /* ✅ 100vw보다 더 크게 확장 */
+    height: auto;
+    display: block;
+    position: relative;
+    left: -50vw;      /* ✅ 중앙 정렬 효과 (150 - 100) / 2 */
+  }
+  .team1-row,
+  .team2-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+ 
+
+  .team-desc,
+  .team2-desc {
+    text-align: left;
+  }
+
+  .team1-arrow,
+  .team2-arrow {
+    width: 180px;
+    height: 60px;
+  }
+
+  .team1-name,
+  .team1-title,
+  .team2-name,
+  .team2-title {
+    width: 140px;
+  }
+
+  .team1-image,
+  .team2-image {
+    margin-bottom: 30px;
+  }
+
+
+  .footer {
+      width: 100%;
+      padding: 40px 10px;
+      text-align: center;
+      font-size: 14px;
+      color: darkgray;
+      background-color: #e2e2e2;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+}
+  </style>
+</head>
+<body>
+<div class="header">
+  <img src="asset/logo.png" class="logo" id="site-logo" alt="로고">
+  <a href="kr.html" id="about-link" style="color: #0028ff; font-weight: bold;"></a>
+  <img src="asset/hamburger.png" id="hamburger-icon" alt="메뉴" style="height: 24px;" onclick="location.href='kr.html';">
+
+
+</div>
+  
+<div class="title-section">
+    <div class="main">
+        <img src="asset/title-yellow-circle.png" class="yellow-bg" alt="노란 배경">
+
+          <div class="title-group">
+            <img src="asset/title-a.png" class="title-img title-a" alt="얼">
+            <img src="asset/title-b.png" class="title-img title-b" alt="렁">
+            <img src="asset/title-c.png" class="title-img title-c" alt="뚱">
+            <img src="asset/title-d.png" class="title-img title-d" alt="땅">
+          </div>
+            
+        </div>
+
+        <div class="title-eng">
+        <img src="asset/title-eng.png" alt="haphazardly" class="eng-title">
+        </div>
+    </div>
+  </div>
+<div class="preface-section">
+  <div class="preface-inner">
+    <img src="asset/preface-blue-circle.png" class="preface-bg" alt="배경">
+    <div class="preface-text">
+        <img src="asset/preface-team1.png" class="preface-deco deco1" alt="팀1">
+        <img src="asset/preface-team2.png" class="preface-deco deco2" alt="팀2">
+        <p>
+The exhibition begins with the word “Eolreongttungttang” (haphazardly).<br>
+Although the word usually implies an impromptu or seemingly insincere attitude,<br>
+within the inevitable imperfection of “Eolreongttungttang” that we face as students and amateurs,<br>
+there lies an opportunity to encounter our own individuality.
+</p>
+<p>
+This exhibition embraces such “Eolreongttungttangness” as part of the work,<br>
+seeking to reveal the uncertainty and fluidity within the process.<br>
+Both participating teams focus on movement within the process,<br>
+starting from a clumsy and unstable state and expanding the theme in their own ways.
+</p>
+
+
+    </div>
+  </div>
+</div>
+<div class="preface-section">
+  <div class="preface-inner">
+    <img src="asset/preface-blue-circle.png" class="preface-bg" alt="Background">
+    <div class="preface-text">
+        <img src="asset/preface-team1.png" class="preface-deco deco1" alt="Team 1">
+        <img src="asset/preface-team2.png" class="preface-deco deco2" alt="Team 2">
+        <p>
+        This exhibition begins with the word “Eolleongttungttang” (roughly meaning slapdash).<br>
+        Although it generally refers to an impromptu or seemingly insincere attitude,<br>
+        within the inevitable slapdash imperfection we experience as students and amateurs,<br>
+        lies an opportunity to face our individuality.
+        </p>
+        <p>
+        This exhibition embraces such “slapdashness” as part of the work,<br>
+        aiming to reveal uncertainty and fluidity within the process.<br>
+        Both participating teams focus on movements within the process,<br>
+        starting from clumsiness and instability to expand the theme in their own ways.
+        </p>
+    </div>
+  </div>
+</div>
+<div class="preface-section">
+  <div class="preface-inner">
+    <img src="asset/s.png" class="preface-bg" alt="Background">
+
+    <div class="preface-text-top">
+      <p>
+        Team 1 starts from the concept of the “Coriolis force,” exploring the complexity of family relationships<br>
+        and the flow of emotions within them. Team 2 explores the gap between social perspectives<br>
+        and personal intimacy through a fake documentary about the daily life of a politically mismatched couple.
+      </p>
+      <p>
+        Though their approaches and contents differ, both teams share an attitude of attempting, composing,<br>
+        and deciding from an unsettled state. This reflects the incomplete character, spontaneity,<br>
+        and cautious experimentation implied by the word “slapdash.”
+      </p>
+    </div>
+
+    <div class="preface-text-bottom">
+      <p>
+        This exhibition does not present a clear theme or a dazzling conclusion.<br>
+        Instead, it presents the creators’ inconsistent perspectives, emotions, and attempts as they are,<br>
+        allowing the audience to encounter the imperfect questions and the raw attitude itself.
+      </p>
+    </div>
+  </div>
+</div>
+<div class="team1-section team1-bg">
+  <div class="team1-inner">
+
+    <img src="asset/contents-team1-name.png" class="team1-name" alt="Team 1">
+    <img src="asset/img-team1.png" class="team1-image" alt="Team 1 image">
+    <img src="asset/contents-team1-title.png" class="team1-title" alt="Disc">
+
+    <div class="team1-row">
+      <img src="asset/contents-team1-graphic.png" class="team1-graphic" alt="Graphic">
+      <div class="team1-desc">
+        <p>
+          We think of ourselves as complete individuals and believe that the emotions we feel,<br>
+          the words we speak, and the self we carry can reach others directly and accurately.<br>
+          But the world rotates. We stand on a massive spinning disc.<br>
+          So even though we exist in the same space, words miss their mark, expressions are misunderstood,<br>
+          and love goes astray. My emotions and intentions draw a curve different from what I expect,<br>
+          and my words bend before they reach you.
+        </p>
+      </div>
+    </div>
+
+<div class="team1-arrow-wrapper">
+  <div class="team1-arrow" role="button" onclick="window.location.href='https://soyongkeem.github.io/the-rotating-disc/';"></div>
+</div>
+
+  </div>
+</div>
+<div class="team2-section">
+  <div class="team2-inner">
+
+    <img src="asset/contents-team2-name.png" class="team2-name" alt="Team 2">
+    <img src="asset/img-team2.png" class="team2-image" id="team2-img" alt="Team 2 image">
+    <img src="asset/contents-team2-title.png" class="team2-title" alt="Blanket 離不">
+
+    <div class="team2-row">
+      <img src="asset/contents-team2-graphic.png" class="team2-graphic" alt="Laundry graphic">
+      <div class="team2-desc">
+        <p>
+This work captures the subtle understanding and misunderstanding<br>
+that two people in love face, even while living in different worldviews.<br>
+It quietly asks if love can go beyond differences in values,<br>
+and if we truly look at the same world as the one we love.<br>
+Is the person we love really living in the same world as us?<br><br>
+On an ordinary dawn, waiting for the laundry to finish,<br>
+a young couple shares words that soak into daily life like laundry.<br>
+Love grows in such unremarkable moments, but can also quietly slip out of sync.<br>
+Though the relationship began with affection,<br>
+if we see people in different ways, can our love truly endure?
+</p>
+    <div class="team2-arrow-wrapper">
+  <div class="team2-arrow" role="button" onclick="window.location.href='https://kohboogie.github.io/blanket/';"></div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+  <footer class="footer">
+    <p>© 2025 얼렁뚱땅. All rights reserved. Team Nemoane.</p>
+  </footer>
+<script>
+  window.addEventListener('scroll', function () {
+    const target = document.getElementById('team2-img');
+    const logo = document.getElementById('site-logo');
+    const about = document.getElementById('about-link');
+
+    const rect = target.getBoundingClientRect();
+    const triggerPoint = window.innerHeight / 2;
+
+    if (rect.top < triggerPoint && rect.bottom > 0) {
+      // 이미지가 화면 중앙쯤 들어오면 변경
+      logo.src = 'asset/logo2.png';
+      about.style.color = '#ffffff';
+    } else {
+      // 벗어나면 복귀
+      logo.src = 'asset/logo.png';
+      about.style.color = '#0028ff';
+    }
+  });
+
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+    const yellowBg = document.querySelector('.yellow-bg');
+    if (window.innerWidth <= 768) {
+      yellowBg.src = 'asset/mobile-title-yellow-circle.png';
+    }
+  });
+</script>
+
+
+</body>
+</html>

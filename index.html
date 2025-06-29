@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>얼렁뚱땅</title>
+  <style>
+html, body {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  line-height: 1.8;
+  font-family: sans-serif;
+  background: #fff;
+  word-break: keep-all;      /* 단어를 잘라서 줄바꿈하지 않음 (주로 한글/아시아 문자에 유효) */
+  overflow-wrap: normal;     /* 단어가 너무 길면 줄바꿈하지 않음 */
+  white-space: normal;
+}
+p {
+    margin-bottom: 60px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px 20px 30px;
+  z-index: 100;
+  position: fixed;
+  width: 100%;
+  backdrop-filter: blur(10px); /* 블러 효과 */
+  background-color: transparent; /* ✅ 흰 배경 제거 */
+  border-bottom: 1px solid #0000001d;
+  box-sizing: border-box;
+}
+
+
+    .logo {
+      height: 30px;
+      cursor: pointer;
+    }
+
+    .main {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .yellow-bg {
+      width: 100%;
+      height: auto;
+      display: block;
+      position: relative;
+      z-index: 0;
+    }
+
+    .title-group {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      gap: 10px;
+      z-index: 1;
+    }
+
+    .title-group img {
+      height: 200px;
+    }
+/* 얼 - 왼쪽으로 살짝 기울고 내려감 */
+.title-a {
+  transform: rotate(4deg) translateY(10px);
+}
+
+/* 렁 - 오른쪽으로 기울고 살짝 내려감 */
+.title-b {
+  transform: rotate(-4deg) translateY(-18px);
+}
+
+.title-c {
+  transform: rotate(-0deg) translateY(-0px);
+}
+
+
+/* 땅 - 왼쪽으로 약간 기울고 아주 살짝 올라감 */
+.title-d {
+  transform: rotate(10deg) translateY(-4px) scale(1.15);
+}
+    .title-eng {
+      position: absolute;
+      bottom: 12%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+
+    .title-eng img {
+      height: 60px;
+      display: block;
+    }
+
+    .title-section {
+            margin-bottom: 150px;
+        padding-top: 120px;
+        height: 100vh;
+    }
+
+    @keyframes wiggle {
+      0%   { transform: translate(0, 0); }
+      15%  { transform: translate(-6px, -6px); }
+      30%  { transform: translate(6px, 6px); }
+      45%  { transform: translate(-7px, 5px); }
+      60%  { transform: translate(7px, -5px); }
+      75%  { transform: translate(-5px, 7px); }
+      90%  { transform: translate(5px, -7px); }
+      100% { transform: translate(0, 0); }
+    }
+
+    @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+    }
+
+    .title-group img:hover,
+    .title-eng img:hover, 
+    .preface-deco:hover,
+    .team1-name:hover,
+    .team1-title:hover,
+    .team2-name:hover,
+    .team2-title:hover
+    {
+      animation: wiggle 0.5s ease-in-out infinite;
+    }
+    
+    .team1-graphic:hover,
+    .team2-graphic:hover{
+  animation: spin 8s linear;
+    }
+.preface-section {
+  margin-bottom: 150px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.preface-inner {
+  position: relative;
+  width: 1500px; /* ✅ 실제 이미지 너비 */
+  display: block;
+}
+
+.preface-bg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.preface-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  color: white;
+  line-height: 1.8;
+  text-align: center;
+  width: 100%;
+  max-width: 800px;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+
+/* 기존 preface-text-black 분리 */
+.preface-text-top {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  color: rgb(0, 0, 0);
+  line-height: 1.8;
+  text-align: center;
+  width: 100%;
+  max-width: 800px;
+}
+
+.preface-text-bottom {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  color: rgb(0, 0, 0);
+  line-height: 1.8;
+  text-align: center;
+  width: 100%;
+  max-width: 800px;
+}
+
+.preface-deco {
+  position: absolute;
+  z-index: 2;
+  width: 240px; /* 적절한 크기로 조정 */
+}
+
+.deco1 {
+  top: -100px;
+  right: -60px;
+}
+
+.deco2 {
+  bottom: -120px;
+  left: -20px;
+}
+/* 1팀 전체 섹션 배경 및 정렬 */
+.team1-section {
+  background-color: #FFF600;
+  width: 100%;
+  padding: 100px 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* 내부 최대 너비 1200px */
+.team1-inner {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* 상단 '1팀' 텍스트 이미지 */
+.team1-name {
+  width: 200px;
+  margin-bottom: 40px;
+}
+
+/* 중간 큰 사진 */
+.team1-image {
+  width: 100%;
+  margin-bottom: 60px;
+}
+
+/* '원판' 텍스트 이미지 */
+.team1-title {
+  width: 180px;
+  margin-bottom: 40px;
+}
+
+/* 그래픽 + 설명 텍스트 나란히 */
+.team1-row {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  margin-bottom: 60px;
+}
+
+/* 좌측 원형 그래픽 이미지 */
+.team1-graphic {
+  width: 240px;
+  flex-shrink: 0;
+}
+
+/* 설명 텍스트 */
+.team-desc {
+  flex: 1;
+  color: #000;
+}
+
+/* 화살표를 오른쪽 정렬 */
+.team1-arrow-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 화살표 이미지 */
+.team1-arrow {
+  width: 300px;
+  margin-top: 20px;
+}
+.team1-arrow {
+  width: 300px;
+  height: 100px;
+  margin-top: 20px;
+  background-image: url('asset/arrow.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.team1-arrow:hover {
+  background-image: url('asset/arrow-team1-hover.png');
+}
+
+.team2-section {
+  background-color: #0028ff;
+  width: 100%;
+  padding: 100px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.team2-inner {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.team2-name {
+  width: 200px;
+  margin-bottom: 40px;
+}
+
+.team2-image {
+  width: 100%;
+  margin-bottom: 60px;
+}
+
+.team2-title {
+  width: 180px;
+  margin-bottom: 40px;
+}
+
+.team2-row {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  margin-bottom: 60px;
+}
+
+.team2-graphic {
+  width: 180px;
+  flex-shrink: 0;
+}
+
+.team2-desc {
+  flex: 1;
+  color: #fff000;
+  line-height: 1.8;
+  color: #fff;
+}
+
+.team2-arrow-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.team2-arrow {
+  width: 300px;
+  height: 100px;
+  margin-top: 20px;
+  background-image: url('asset/arrow.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.team2-arrow:hover {
+  background-image: url('asset/arrow-team2-hover.png');
+}
+
+@media (max-width: 768px) {
+  html, body {
+    font-size: 14px;
+    width: 100vw;  
+     overflow-x: hidden;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header {
+    flex-direction: row;
+    justify-content: space-between; /* About 오른쪽 정렬 유지 */
+    align-items: center;
+    padding: 10px 20px;
+  }
+
+  .logo {
+    height: 20px;
+  }
+
+
+  .title-section {
+    height: auto; /* ✅ 고정 높이 해제 */
+    margin-bottom: 100px; /* ✅ 아래 마진 제거 */
+    padding-top: 100px; /* 필요 시 줄이기 */
+  }
+
+  .title-group {
+    gap: 6px;
+  }
+
+  .title-group img {
+    height: 80px; /* 얼렁뚱땅 줄이기 */
+  }
+
+  .title-eng img {
+display: none
+  }
+
+#about-link {
+  min-width: 60px; /* About 없을 때도 공간 유지 */
+  text-align: right;
+}
+
+  .about-link {
+  margin-left: auto; /* 로고와 About 사이 공간 확보 */
+  text-decoration: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #000;
+}
+.preface-section {
+    padding: 0 30px;
+    box-sizing: border-box;   /* ✅ 패딩 포함 너비 계산 */
+    position: relative;
+  }
+
+  .preface-inner {
+    width: 100%;
+    margin: 0 auto;
+  }
+  .preface-text,
+  .preface-text-top,
+  .preface-text-bottom {
+    max-width: 100%;
+    text-align: left;
+    line-height: 1.7;
+  }
+.preface-deco {
+    display: none !important;
+  }
+
+  br {
+    display: none !important;
+  }
+
+  .team1-inner,
+  .team2-inner {
+    padding: 0 30px;
+  }
+.preface-bg {
+    width: 200vw;     /* ✅ 100vw보다 더 크게 확장 */
+    height: auto;
+    display: block;
+    position: relative;
+    left: -50vw;      /* ✅ 중앙 정렬 효과 (150 - 100) / 2 */
+  }
+  .team1-row,
+  .team2-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+ 
+
+  .team-desc,
+  .team2-desc {
+    text-align: left;
+  }
+
+  .team1-arrow,
+  .team2-arrow {
+    width: 180px;
+    height: 60px;
+  }
+
+  .team1-name,
+  .team1-title,
+  .team2-name,
+  .team2-title {
+    width: 140px;
+  }
+
+  .team1-image,
+  .team2-image {
+    margin-bottom: 30px;
+  }
+}
+    .footer {
+      width: 100%;
+      padding: 40px 10px;
+      text-align: center;
+      font-size: 14px;
+      color: darkgray;
+      background-color: #e2e2e2;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+
+  </style>
+</head>
+<body>
+<div class="header">
+  <img src="asset/logo.png" class="logo" id="site-logo" alt="로고">
+  <a href="kr.html" id="about-link" style="color: #0028ff; font-weight: bold;"></a>
+  <img src="asset/hamburger.png" id="hamburger-icon" alt="메뉴" style="height: 24px;" onclick="location.href='kr.html';">
+
+
+</div>
+  
+<div class="title-section">
+    <div class="main">
+        <img src="asset/title-yellow-circle.png" class="yellow-bg" alt="노란 배경">
+
+          <div class="title-group">
+            <img src="asset/title-a.png" class="title-img title-a" alt="얼">
+            <img src="asset/title-b.png" class="title-img title-b" alt="렁">
+            <img src="asset/title-c.png" class="title-img title-c" alt="뚱">
+            <img src="asset/title-d.png" class="title-img title-d" alt="땅">
+          </div>
+            
+        </div>
+
+        <div class="title-eng">
+        <img src="asset/title-eng.png" alt="haphazardly" class="eng-title">
+        </div>
+    </div>
+  </div>
+<div class="preface-section">
+  <div class="preface-inner">
+    <img src="asset/preface-blue-circle.png" class="preface-bg" alt="배경">
+    <div class="preface-text">
+        <img src="asset/preface-team1.png" class="preface-deco deco1" alt="팀1">
+        <img src="asset/preface-team2.png" class="preface-deco deco2" alt="팀2">
+        <p>
+        전시는 얼렁뚱땅이라는 단어에서 출발한다.<br>
+        얼렁뚱땅은 일반적으로 즉흥적이거나 성의 없어 보이는 태도를 의미하지만,<br>
+        학생이자 아마추어인 우리가 겪을 수밖에 없는<br>
+        ‘얼렁뚱땅’스러운 불완전성 속엔 되려 우리의 개성을 마주할 기회가 담겨있기도 하다.</p>
+        <p>
+        이번 전시는 그러한 ‘얼렁뚱땅함’을 작업의 일부로 받아들이며,<br>
+        과정 속의 불확실성과 유동성을 드러내고자 한다.<br>
+        참여한 두 팀 모두 과정에서의 움직임에 주목하며,<br>
+        서툴고 불안정한 상태에서 출발해 각자의 방식으로 주제를 확장한다.
+        </p>
+
+    </div>
+  </div>
+</div>
+<div class="preface-section">
+  <div class="preface-inner">
+    <img src="asset/s.png" class="preface-bg" alt="배경">
+
+    <!-- 위쪽 정렬된 문단 -->
+    <div class="preface-text-top">
+      <p>
+        1팀은 ‘코리올리 힘’ 개념을 출발점 삼아 가족 관계의 복잡성과 그 안에서<br>
+        발생하는 감정의 흐름을 다루며, 2팀은 정치 성향이 다른 커플의 일상을 다룬<br>
+        페이크 다큐 작업을 통해 사회적 관점과 개인적 친밀감 사이의 간극을 탐색한다.
+      </p>
+       <p>
+        작업 방식과 내용은 다르지만, 두 팀 모두 확정되지 않은 상태에서 시도하고 구성하며<br>
+        결정해 나가는 일련의 태도를 공유하고 있다. 이는 ‘얼렁뚱땅’이라는 단어가 내포하는<br>
+        미완의 성격, 즉흥성과 조심스러운 실험을 반영한 결과다.
+      </p>
+    </div>
+
+    <!-- 아래쪽 정렬된 문단 -->
+    <div class="preface-text-bottom">
+      <p>
+        본 전시는 명확한 주제나 화려한 결론을 제시하지 않는다.<br>
+        대신 작업자들의 일관되지 않은 시선과 감정, 시도를 있는<br>
+        그대로 제시하며 관람자로 하여금 불완전한 질문들과 가공되지<br>
+        않은 태도 자체를 마주하게 만든다.
+        </p>
+    </div>
+
+  </div>
+</div>
+<div class="team1-section team1-bg">
+  <div class="team1-inner">
+
+    <img src="asset/contents-team1-name.png" class="team1-name" alt="1팀">
+    <img src="asset/img-team1.png" class="team1-image" alt="1팀 이미지">
+    <img src="asset/contents-team1-title.png" class="team1-title" alt="원판">
+
+    <div class="team1-row">
+      <img src="asset/contents-team1-graphic.png" class="team1-graphic" alt="그래픽">
+      <div class="team1-desc">
+        <p>
+          우리는 자신을 완전한 개별자라고 생각하고 내가 느끼는 감정, 내가 건네는 말,<br>
+          내가 지닌 나라는 존재는 곧고 정확하게 닿을 수 있으리라 믿는다. 그러나 세계는<br>
+          회전한다. 우리가 서 있는 곳은 거대한 회전 원판. 그래서 우리는 같은 공간에<br>
+          존재하면서도 말은 비껴가고, 표정은 오해되고, 사랑은 엇나간다. 나의 감정과<br>
+          의도는 기대와는 다른 곡선을 그리며, 나의 말은 너에게 닿기 전에 휘어진다.
+        </p>
+      </div>
+    </div>
+
+<div class="team1-arrow-wrapper">
+  <div class="team1-arrow" role="button" onclick="window.location.href='https://soyongkeem.github.io/the-rotating-disc/';"></div>
+</div>>
+
+  </div>
+</div>
+<div class="team2-section">
+  <div class="team2-inner">
+
+    <img src="asset/contents-team2-name.png" class="team2-name" alt="2팀">
+<img src="asset/img-team2.png" class="team2-image" id="team2-img" alt="2팀 이미지">
+    <img src="asset/contents-team2-title.png" class="team2-title" alt="이불 離不">
+
+    <div class="team2-row">
+      <img src="asset/contents-team2-graphic.png" class="team2-graphic" alt="세탁 그래픽">
+      <div class="team2-desc">
+        <p>
+이 작업은 평범한 새벽의 대화를 통해, 사랑하는 사이일지라도 서로 다른 세계관 속에서<br>
+살아가는 두 사람이 마주하는 미묘한 이해와 오해, 애정과 거리감을 담아낸다.<br>
+이를 통해 사랑이 가치관의 차이를 넘어설 수 있는지,<br>
+우리는 정말 같은 세상을 바라보며 사랑하고 있는지를 조용히 질문한다.<br>
+우리가 사랑하는 사람은 정말 나와 같은 세상을 살고 있는가?<br><br>
+세탁이 끝나기를 기다리는 평범한 새벽, 젊은 연인이 빨래처럼 일상 속에 스며든<br>
+대화를 주고받는다.<br>
+사랑은 특별할 것 없는 순간들 속에서 자라나기도 하고, 또 스르르 어긋나기도 한다.<br>
+좋아해서 시작된 관계지만, 나와 네가 사람을 바라보는 방식이 다르다면<br>
+우리네 연애는 지속될 수 있을까?
+
+        </p>
+      </div>
+    </div>
+
+    <div class="team2-arrow-wrapper">
+  <div class="team2-arrow" role="button" onclick="window.location.href='https://kohboogie.github.io/blanket/';"></div>
+</div>
+
+  </div>
+</div>
+    <footer class="footer">
+      <p>© 2025 얼렁뚱땅. All rights reserved. Team Nemoane.</p>
+    </footer>
+
+<script>
+  window.addEventListener('scroll', function () {
+    const target = document.getElementById('team2-img');
+    const logo = document.getElementById('site-logo');
+    const about = document.getElementById('about-link');
+
+    const rect = target.getBoundingClientRect();
+    const triggerPoint = window.innerHeight / 2;
+
+    if (rect.top < triggerPoint && rect.bottom > 0) {
+      // 이미지가 화면 중앙쯤 들어오면 변경
+      logo.src = 'asset/logo2.png';
+      about.style.color = '#ffffff';
+    } else {
+      // 벗어나면 복귀
+      logo.src = 'asset/logo.png';
+      about.style.color = '#0028ff';
+    }
+  });
+
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+    const yellowBg = document.querySelector('.yellow-bg');
+    if (window.innerWidth <= 768) {
+      yellowBg.src = 'asset/mobile-title-yellow-circle.png';
+    }
+  });
+</script>
+
+
+</body>
+</html>

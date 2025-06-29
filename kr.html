@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>네모아네 얼렁뚱땅전</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-size: 20px;
+      line-height: 1.8;
+      font-family: sans-serif;
+      background: #fff;
+      height: 100vh;
+      overflow: hidden; /* 스크롤 방지 */
+      word-break: keep-all;      /* 단어를 잘라서 줄바꿈하지 않음 (주로 한글/아시아 문자에 유효) */
+  overflow-wrap: normal;     /* 단어가 너무 길면 줄바꿈하지 않음 */
+  white-space: normal;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px 20px 30px;
+      position: fixed;
+      width: 100%;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+      background-color: transparent;
+      border-bottom: 1px solid #0000001d;
+      box-sizing: border-box;
+    }
+
+    .header img {
+      height: 24px;
+    }
+
+    .close-button {
+      position: absolute;
+      top: 0px;
+      right: 30px;
+      font-size: 40px;
+      font-weight: lighter;
+      color: white;
+      background: none;
+      border: none !important;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+.background-circle {
+  position: absolute;
+  top: -50vw;
+  right: -130vw;
+  width: 200vw;
+  height: 200vw;
+  z-index: 0;
+}
+
+    .container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      height: 100vh; /* min-height에서 height로 변경 */
+      flex-direction: column;
+      padding-top: 120px; /* 헤더 공간 보정 */
+      box-sizing: border-box;
+    }
+
+    .main-content {
+      display: flex;
+      gap: 2rem;
+      height: 100%; /* min-height에서 height로 변경 */
+      flex: 1; /* 남은 공간 모두 사용 */
+    }
+
+    .left-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      position: relative;
+      right: -70px;
+      top: 100px;
+    }
+
+    .language {
+      display: flex;
+      gap: 35px;
+    }
+
+    .language img {
+      height: 19px !important;
+    }
+
+    .left-top-row {
+      display: flex;
+      gap: 42.5px;
+    }
+    .left-bottom-row {
+      display: flex;
+      gap: 60px;
+    }
+
+    .left-top-row img,
+    .left-bottom-row img {
+      height: 25px;
+    }
+
+    .left-bottom1-row img {
+      height: 22px;
+    }
+
+    .right-section {
+      display: flex;
+      flex-direction: column;
+      gap: 65px;
+      position: relative;
+      top: 125px;
+      right: 320px;
+    }
+
+    .dot-section {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .dot {
+      font-size: 15px;
+      color: #F4CD1D;
+      line-height: 1;
+      padding-top: 11.5px;
+    }
+
+    .right-section-intro img {
+      width: 150px;
+    }
+
+    .right-section-team1,
+    .right-section-team2 {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .right-section-team1 img,
+    .right-section-team2 img {
+      width: 290px;
+    }
+
+    /* 데스크톱 버전 - 기본 이미지들 */
+    .desktop-images {
+      display: block;
+    }
+
+    .mobile-images {
+      display: none;
+    }
+.mobile-background {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;  /* 뒤로 보냄 */
+  width: 100vw;
+  max-width: 700px;
+  display: none;
+}
+    @media (max-width: 768px) {
+      html, body {
+        font-size: 16px;
+        line-height: 1.6;
+        overflow-x: hidden;
+        background: #1B4AD6; /* 파란색 배경 */
+      }
+.mobile-background {
+    display: none; /* 기본은 숨김 */
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0; /* 내용물보다 뒤에 */
+  width: 80vw; /* 원하는 크기로 조절 */
+  max-width: 600px;
+}
+
+      .header {
+        padding: 20px 20px;
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* 부드러운 아래 그림자 */
+      }
+  .mobile-background {
+    display: block; /* 모바일에서만 보이도록 */
+  }
+      .header img {
+        height: 24px;
+      }
+
+      .close-button {
+        color: white;
+        top: 8px;
+        right: 20px;
+      }
+
+      .background-circle {
+        display: none; /* 모바일에서는 배경 원 숨김 */
+      }
+
+      .container {
+        padding: 40px 20px;
+      }
+
+      .main-content {
+        flex-direction: column;
+        gap: 0;
+        height: auto;
+      }
+
+      .left-section {
+        position: static;
+        right: auto;
+        top: auto;
+        order: 1;
+        gap: 40px;
+        margin-top: 70px;
+        margin-bottom: 100px; /* contact와 intro 사이 간격을 100px로 설정 */
+      }
+
+      .left-top-row {
+        gap: 20px;
+        align-items: center;
+      }
+
+      .left-top-row img {
+        height: 40px;
+      }
+
+      .language {
+        gap: 20px;
+        align-items: center;
+      }
+
+      .language img {
+        height: 30px !important;
+      }
+
+      .left-bottom-row {
+        gap: 40px;
+        align-items: center;
+      }
+
+      .left-bottom1-row img {
+        height: 35px;
+      }
+
+      .left-bottom-row > img {
+        height: 35px;
+      }
+
+      .right-section {
+        position: static;
+        right: auto;
+        top: 0; /* top 값을 0으로 조정 */
+        order: 2;
+        gap: 40px;
+      }
+
+      .dot-section {
+        gap: 0;
+        align-items: flex-start;
+      }
+
+      .dot {
+        display: none; /* 점 숨김 */
+      }
+
+      .right-section-intro img {
+        width: 200px;
+        height: auto;
+      }
+
+      .right-section-team1 img,
+      .right-section-team2 img {
+        width: 100%;
+        height: auto;
+        max-width: 280px;
+      }
+
+      /* 모바일에서는 다른 이미지 세트 사용 */
+      .desktop-images {
+        display: none;
+      }
+
+      .mobile-images {
+        display: block;
+      }
+
+
+
+
+.right-section-team1,
+  .right-section-team2 {
+    align-items: flex-start;   /* 컨테이너 왼쪽 정렬 */
+  }
+
+/* Language 글자 이미지 */
+.left-top-row .mobile-images {
+    height: 26px !important;
+    width: auto !important;
+  }
+
+    /* KR / EN 아이콘 이미지 */
+  .language .mobile-images {
+    height: 20px !important;  /* 원하는 높이 값으로 조정 */
+    width: auto !important;
+  }
+  /* 나머지 intro, contact, language 등 */
+  .right-section-intro img,
+  .left-bottom-row img,
+  .left-bottom1-row img {
+    height: 20px !important;
+    width: auto;
+  }              
+  .right-section-team1 img:first-child,
+  .right-section-team2 img:first-child {
+    height: 48px !important;
+    width: auto !important;
+    max-width: 100% !important;
+    margin: 0;                /* 중앙 margin 제거 */
+    display: block;           /* inline 말고 block으로 왼쪽에 딱 붙게 */
+}
+    }
+  </style>
+</head>
+<body>
+  <button class="close-button" onclick="location.href='index.html';">×</button>
+  <div class="header">
+    <img id="signature" class="desktop-images" src="asset/signature.png" alt="로고">
+    <img id="signature-mobile" class="mobile-images" src="asset/logo2.png" alt="로고">
+  </div>
+
+<img src="asset/white-s.png" alt="Mobile Background" class="mobile-background">
+  <img src="asset/blue-circle.png" alt="Blue Circle Background" class="background-circle">
+
+  <div class="container">
+    <div class="main-content">
+      <div class="left-section">
+        <div class="left-top-row">
+          <!-- 데스크톱 버전 이미지 -->
+          <img class="desktop-images" src="asset/language.png" alt="언어">
+          <img class="mobile-images" src="asset/language-wh.png" alt="언어">
+          <div class="language">
+            <a href="kr.html">
+              <img class="desktop-images" src="asset/kr-100.png" alt="KR">
+            </a>
+            <a href="en.html">
+              <img class="desktop-images" src="asset/en-36.png" alt="EN">
+            </a>
+            <a href="kr.html">
+              <img class="mobile-images" src="asset/kr-y.png" alt="KR">
+            </a>
+            <a href="en.html">
+              <img class="mobile-images" src="asset/en-wh.png" alt="EN">
+            </a>
+          </div>
+
+        </div>
+        <div class="left-bottom-row">
+          <div class="left-bottom1-row">
+            <img class="desktop-images" src="asset/contact.png" alt="연락처">
+            <img class="mobile-images" src="asset/contact-wh.png" alt="연락처">
+          </div>
+          <a href="https://www.instagram.com/nemoane.seoul" target="_blank">
+            <img class="desktop-images" src="asset/instagram.png" alt="인스타그램">
+          </a>
+          <a href="https://www.instagram.com/nemoane.seoul" target="_blank">
+            <img class="mobile-images" src="asset/ingicon.png" alt="인스타그램">
+          </a>
+
+        </div>
+      </div>
+
+      <div class="right-section">
+        <div class="dot-section">
+          <div class="dot">●</div>
+          <div class="right-section-intro">
+            <img src="asset/intro.png" alt="인트로">
+          </div>
+        </div>
+       <div class="dot-section">
+  <div class="dot">●</div>
+  <div class="right-section-team1">
+    <a href="25-nemoane-team1">
+      <img src="asset/team1.png" alt="팀1">
+    </a>
+    <a href="25-nemoane-team1">
+      <img id="arrowTeam1" src="asset/arrow-team1.png" alt="화살표1">
+    </a>
+  </div>
+</div>
+
+<div class="dot-section">
+  <div class="dot">●</div>
+  <div class="right-section-team2">
+    <a href="25-nemoane-team1">
+      <img src="asset/team2.png" alt="팀2">
+    </a>
+    <a href="25-nemoane-team1">
+      <img id="arrowTeam2" src="asset/arrow-team2.png" alt="화살표2">
+    </a>
+  </div>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const arrow1 = document.getElementById('arrowTeam1');
+    arrow1.addEventListener('mouseenter', () => {
+      arrow1.src = 'asset/arrow-team1-hover.png';
+    });
+    arrow1.addEventListener('mouseleave', () => {
+      arrow1.src = 'asset/arrow-team1.png';
+    });
+
+    const arrow2 = document.getElementById('arrowTeam2');
+    arrow2.addEventListener('mouseenter', () => {
+      arrow2.src = 'asset/arrow-team2-hover.png';
+    });
+    arrow2.addEventListener('mouseleave', () => {
+      arrow2.src = 'asset/arrow-team2.png';
+    });
+
+    // 데스크톱 버전 signature 호버
+    const signature = document.getElementById('signature');
+    if (signature) {
+      signature.addEventListener('mouseenter', () => {
+        signature.src = 'asset/signature-hover.png';
+      });
+      signature.addEventListener('mouseleave', () => {
+        signature.src = 'asset/signature.png';
+      });
+    }
+
+    // 모바일 버전은 호버 효과 없음 (필요시 추가 가능)
+  </script>
+</body>
+</html>
