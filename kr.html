@@ -337,8 +337,12 @@ box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* 부드러운 아래 그림자 */
 <body>
   <button class="close-button" onclick="location.href='index.html';">×</button>
   <div class="header">
-    <img id="signature" class="desktop-images" src="asset/signature.png" alt="로고">
-    <img id="signature-mobile" class="mobile-images" src="asset/logo2.png" alt="로고">
+      <a href="index.html">
+        <img id="signature" class="desktop-images" src="asset/signature.png" alt="로고">
+      </a>
+      <a href="index.html">
+        <img id="signature-mobile" class="mobile-images" src="asset/logo2.png" alt="로고">
+      </a>
   </div>
 
 <img src="asset/white-s.png" alt="Mobile Background" class="mobile-background">
@@ -396,7 +400,7 @@ box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* 부드러운 아래 그림자 */
       <img src="asset/team1.png" alt="팀1">
     </a>
     <a href="25-nemoane-team1">
-      <img id="arrowTeam1" src="asset/arrow-team1.png" alt="화살표1">
+      <img id="arrowTeam1" src="asset/arrow-team1.png" alt="화살표1" style="cursor: pointer;" onclick="window.location.href='https://soyongkeem.github.io/the-rotating-disc/p'">
     </a>
   </div>
 </div>
@@ -408,7 +412,8 @@ box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* 부드러운 아래 그림자 */
       <img src="asset/team2.png" alt="팀2">
     </a>
     <a href="25-nemoane-team1">
-      <img id="arrowTeam2" src="asset/arrow-team2.png" alt="화살표2">
+      <img id="arrowTeam2" src="asset/arrow-team2.png" alt="화살표2" style="cursor: pointer;" onclick="window.location.href='https://kohboogie.github.io/blanket/'">
+
     </a>
   </div>
 </div>
@@ -434,16 +439,6 @@ box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* 부드러운 아래 그림자 */
       arrow2.src = 'asset/arrow-team2.png';
     });
 
-    // 데스크톱 버전 signature 호버
-    const signature = document.getElementById('signature');
-    if (signature) {
-      signature.addEventListener('mouseenter', () => {
-        signature.src = 'asset/signature-hover.png';
-      });
-      signature.addEventListener('mouseleave', () => {
-        signature.src = 'asset/signature.png';
-      });
-    }
 
     // 모바일 버전은 호버 효과 없음 (필요시 추가 가능)
   </script>
