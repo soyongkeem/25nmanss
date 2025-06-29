@@ -366,7 +366,15 @@ p {
 .team2-arrow:hover {
   background-image: url('asset/arrow-yellow.png');
 }
-
+  .footer {
+      width: 100%;
+      padding: 40px 10px;
+      text-align: center;
+      font-size: 14px;
+      color: darkgray;
+      background-color: #e2e2e2;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
 @media (max-width: 768px) {
   html, body {
     font-size: 14px;
@@ -481,15 +489,7 @@ display: none
   }
 
 
-  .footer {
-      width: 100%;
-      padding: 40px 10px;
-      text-align: center;
-      font-size: 14px;
-      color: darkgray;
-      background-color: #e2e2e2;
-      font-family: 'Noto Sans KR', sans-serif;
-    }
+
 }
   </style>
 </head>
@@ -497,8 +497,7 @@ display: none
 <div class="header">
   <img src="asset/logo.png" class="logo" id="site-logo" alt="로고">
   <a href="kr.html" id="about-link" style="color: #0028ff; font-weight: bold;"></a>
-  <img src="asset/hamburger.png" id="hamburger-icon" alt="메뉴" style="height: 24px;" onclick="location.href='kr.html';">
-
+  <img src="asset/hamburger.png" id="hamburger-icon" alt="메뉴" style="height: 24px; cursor: pointer;" onclick="location.href='kr.html';">
 
 </div>
   
@@ -639,35 +638,37 @@ Love grows in such unremarkable moments, but can also quietly slip out of sync.<
 Though the relationship began with affection,<br>
 if we see people in different ways, can our love truly endure?
 </p>
-    <div class="team2-arrow-wrapper">
-  <div class="team2-arrow" role="button" onclick="window.location.href='https://kohboogie.github.io/blanket/';"></div>
-</div>
+
       </div>
     </div>
+        <div class="team2-arrow-wrapper">
+  <div class="team2-arrow" role="button" onclick="window.location.href='https://kohboogie.github.io/blanket/';"></div>
+</div>
   </div>
 </div>
   <footer class="footer">
     <p>© 2025 얼렁뚱땅. All rights reserved. Team Nemoane.</p>
   </footer>
 <script>
-  window.addEventListener('scroll', function () {
-    const target = document.getElementById('team2-img');
-    const logo = document.getElementById('site-logo');
-    const about = document.getElementById('about-link');
+window.addEventListener('scroll', function () {
+  const target = document.getElementById('team2-img');
+  const logo = document.getElementById('site-logo');
+  const about = document.getElementById('about-link');
+  const hamburger = document.getElementById('hamburger-icon'); // id 일치시킴
 
-    const rect = target.getBoundingClientRect();
-    const triggerPoint = window.innerHeight / 2;
+  const rect = target.getBoundingClientRect();
+  const triggerPoint = window.innerHeight / 2;
 
-    if (rect.top < triggerPoint && rect.bottom > 0) {
-      // 이미지가 화면 중앙쯤 들어오면 변경
-      logo.src = 'asset/logo2.png';
-      about.style.color = '#ffffff';
-    } else {
-      // 벗어나면 복귀
-      logo.src = 'asset/logo.png';
-      about.style.color = '#0028ff';
-    }
-  });
+  if (rect.top < triggerPoint && rect.bottom > 0) {
+    logo.src = 'asset/logo2.png';
+    hamburger.src = 'asset/hamburger2.png';
+    about.style.color = '#ffffff';
+  } else {
+    logo.src = 'asset/logo.png';
+    hamburger.src = 'asset/hamburger.png';
+    about.style.color = '#0028ff';
+  }
+});
 
 
 
